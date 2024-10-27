@@ -4,12 +4,81 @@ title: "Assignment 1"
 
 # Assignment 1
 
-```{r}
-1 + 1
-```
-
 My first assignment has two parts.
 
 ## (a)
 
+I selected the second talk with Mustafa Baydoğan who is a faculty member at Boğaziçi University. He explained decision-making processes and gave the Newsvendor problem as an example. He provided information on identifying issues and forecasting data. He also explained decision-making by using the example of predicting wood curvature by covering the causes of the issue, solution methods, and outcomes. He talked about the differences between deep learning and traditional learning. He explained the importance of prediction accuracy in decision-making using the electricity market as an example. He discussed algorithms like digital footprints and Google Trends and new technologies in optimization, such as machine learning.
+
+Questions
+
+1\) How can we determine whether a dataset is biased?
+
+2\) Which of the following is correct?
+
+A)  Predictions used for decision-making must be 100% accurate.
+
+B)  Adding a product to the cart contributes to clickstream data.
+
+C)  In the example of a robot navigating a maze, traditional learning strategies are used.
+
+D)  Machine learning cannot be used as a ranking algorithm on shopping websites.
+
+Correct answer is B.
+
 ## (b)
+
+Firstly, I installed the "dslabs" packages into RStudio.
+
+install.packages("dslabs")
+
+```{r}
+#I loaded the dataset.
+library(dslabs)
+data("polls_us_election_2016")
+```
+
+```{r}
+#This code displays the first 10 rows of the dataset.
+print(head(polls_us_election_2016, 10))
+```
+
+```{r}
+#These codes calculates and displays the total number of NA values.
+total_na <- sum(is.na(polls_us_election_2016))
+
+print(paste("Total number of NA values:", total_na))
+```
+
+```{r}
+birth_year <- 2004 
+
+first_name <- "tarik"
+```
+
+```{r}
+polls_modified <- polls_us_election_2016
+```
+
+```{r}
+# Here, I replaced NA in numeric columns with birth year.
+for (col in names(polls_modified)) {
+    if (is.numeric(polls_modified[[col]])) {
+        polls_modified[[col]][is.na(polls_modified[[col]])] <- birth_year
+    } else if (is.character(polls_modified[[col]]) || is.factor(polls_modified[[col]])) {
+        polls_modified[[col]] <- as.character(polls_modified[[col]]) # This code Converts factor to character. I took help from ChatGPT for as.character part because "tarik" as first_name was giving an error.
+        polls_modified[[col]][is.na(polls_modified[[col]])] <- first_name
+    }
+}
+```
+
+```{r}
+#This code prints the first 10 rows of the new data frame.
+print(head(polls_modified, 10))
+```
+
+```{r}
+#Finally, these codes calculates and shows the total number of NA's remaining in the new data frame which is zero.
+remaining_na <- sum(is.na(polls_modified))
+print(paste("Total number of remaining NA values:", remaining_na))
+```
